@@ -46,5 +46,74 @@ public class HouseRulesDbContext : IdentityDbContext<IdentityUser>
       LastName = "Strator",
       Address = "101 Main Street",
     });
+    modelBuilder.Entity<Chore>().HasData(new Chore[]
+    {
+      new Chore
+      {
+        Id= 1,
+        Name = "Do the dishes",
+        Difficulty = 1,
+        ChoreFrequencyDays = 1
+      },
+      new Chore
+      {
+        Id= 2,
+        Name = "Do the dishes",
+        Difficulty = 1,
+        ChoreFrequencyDays = 1
+      },
+      new Chore
+      {
+        Id= 3,
+        Name = "Mow the lawn",
+        Difficulty = 4,
+        ChoreFrequencyDays = 14
+      },
+      new Chore
+      {
+        Id= 4,
+        Name = "Laundry",
+        Difficulty = 3,
+        ChoreFrequencyDays = 7
+      },
+      new Chore
+      {
+        Id= 5,
+        Name = "Vacuum",
+        Difficulty = 5,
+        ChoreFrequencyDays = 7
+      }
+    });
+    modelBuilder.Entity<ChoreAssignment>().HasData(new ChoreAssignment[]
+    {
+      new ChoreAssignment
+      {
+        Id = 1,
+        ChoreId = 1,
+        UserProfileId = 1,
+      },
+      new ChoreAssignment
+      {
+        Id = 2,
+        ChoreId = 2,
+        UserProfileId = 1,
+      },
+      new ChoreAssignment
+      {
+        Id = 3,
+        ChoreId = 3,
+        UserProfileId = 1,
+      }
+    });
+    modelBuilder.Entity<ChoreCompletion>().HasData(new ChoreCompletion[]
+    {
+      new ChoreCompletion
+      {
+        Id = 1,
+        UserProfileId = 1,
+        ChoreId = 1,
+        CompletedOn = DateTime.Now
+      }
+    });
   }
 }
