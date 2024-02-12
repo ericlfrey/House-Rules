@@ -42,7 +42,7 @@ namespace HouseRules.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Chore");
+                    b.ToTable("Chores");
 
                     b.HasData(
                         new
@@ -102,7 +102,7 @@ namespace HouseRules.Migrations
 
                     b.HasIndex("UserProfileId");
 
-                    b.ToTable("ChoreAssignment");
+                    b.ToTable("ChoreAssignments");
 
                     b.HasData(
                         new
@@ -148,14 +148,14 @@ namespace HouseRules.Migrations
 
                     b.HasIndex("UserProfileId");
 
-                    b.ToTable("ChoreCompletion");
+                    b.ToTable("ChoreCompletions");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
                             ChoreId = 1,
-                            CompletedOn = new DateTime(2024, 2, 11, 18, 5, 47, 151, DateTimeKind.Local).AddTicks(3050),
+                            CompletedOn = new DateTime(2024, 2, 12, 16, 34, 1, 667, DateTimeKind.Local).AddTicks(8150),
                             UserProfileId = 1
                         });
                 });
@@ -328,13 +328,13 @@ namespace HouseRules.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "15e5aa94-e0bf-48b1-b224-14c7d550315b",
+                            ConcurrencyStamp = "1769101a-c745-46ac-9152-6af7b3135e6e",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEM+fesU6LCFAmUFAuYzoSvuuLLPtK2w60uBhg78MsqK+M4oyM8YK/dJr1tMsU/Xh9g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEImFdBYScVOp0XxZFmLyFC6S2H4EnUEA/Ky+zVNxPJu0QsJVB0h+uJ3jsmBPJmsatA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6770bc51-5ba6-4c9b-80bd-6dad1b39679e",
+                            SecurityStamp = "ff4bb41b-3156-4a41-b6ca-6a1057302c73",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -437,7 +437,7 @@ namespace HouseRules.Migrations
                         .IsRequired();
 
                     b.HasOne("HouseRules.Models.UserProfile", "UserProfile")
-                        .WithMany()
+                        .WithMany("ChoreAssignments")
                         .HasForeignKey("UserProfileId");
 
                     b.Navigation("Chore");
@@ -454,7 +454,7 @@ namespace HouseRules.Migrations
                         .IsRequired();
 
                     b.HasOne("HouseRules.Models.UserProfile", "UserProfile")
-                        .WithMany()
+                        .WithMany("ChoreCompletions")
                         .HasForeignKey("UserProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -524,6 +524,13 @@ namespace HouseRules.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("HouseRules.Models.UserProfile", b =>
+                {
+                    b.Navigation("ChoreAssignments");
+
+                    b.Navigation("ChoreCompletions");
                 });
 #pragma warning restore 612, 618
         }
