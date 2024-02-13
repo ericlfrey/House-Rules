@@ -1,14 +1,24 @@
 import { useEffect, useState } from 'react';
-import { getChores } from '../managers/choreManager';
-import { Table } from 'reactstrap';
+import { deleteChore, getChores } from '../managers/choreManager';
+import { Button, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { tryGetLoggedInUser } from '../managers/authManager';
 
 export default function ChoresList() {
   const [chores, setChores] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState();
+
+  const getAllChores = () => getChores().then(setChores);
 
   useEffect(() => {
-    getChores().then(setChores);
+    getAllChores();
+    tryGetLoggedInUser().then(user => setLoggedInUser(user));
   }, []);
+
+  const handleDelete = id => {
+    deleteChore(id).then(() => getAllChores());
+  };
+
   return (
     <>
       <h1>Chores List</h1>
@@ -32,25 +42,11 @@ export default function ChoresList() {
                 <Link to={`/chores/${c.id}`}>Details</Link>
               </td>
               <td>
-                {/* {up.roles.includes('Admin') ? (
-                  <Button
-                    color="danger"
-                    onClick={() => {
-                      demote(up.identityUserId);
-                    }}
-                  >
-                    Demote
+                {loggedInUser?.roles.includes('Admin') ? (
+                  <Button color="danger" onClick={() => handleDelete(c.id)}>
+                    Delete
                   </Button>
-                ) : (
-                  <Button
-                    color="success"
-                    onClick={() => {
-                      promote(up.identityUserId);
-                    }}
-                  >
-                    Promote
-                  </Button>
-                )} */}
+                ) : null}
               </td>
             </tr>
           ))}
