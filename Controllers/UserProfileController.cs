@@ -49,6 +49,18 @@ public class UserProfileController : ControllerBase
         .ThenInclude(ca => ca.Chore)
         .Include(up => up.ChoreCompletions)
         .ThenInclude(cc => cc.Chore)
+        .Select(up => new UserProfile
+        {
+          Id = up.Id,
+          FirstName = up.FirstName,
+          LastName = up.LastName,
+          Address = up.Address,
+          IdentityUserId = up.IdentityUserId,
+          Email = up.IdentityUser.Email,
+          UserName = up.IdentityUser.UserName,
+          ChoreAssignments = up.ChoreAssignments,
+          ChoreCompletions = up.ChoreCompletions
+        })
         .SingleOrDefault(up => up.Id == id);
 
     if (userProfile == null)
