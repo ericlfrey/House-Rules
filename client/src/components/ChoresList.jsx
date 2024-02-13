@@ -1,13 +1,61 @@
+import { useEffect, useState } from 'react';
+import { getChores } from '../managers/choreManager';
+import { Table } from 'reactstrap';
+import { Link } from 'react-router-dom';
+
 export default function ChoresList() {
+  const [chores, setChores] = useState([]);
+
+  useEffect(() => {
+    getChores().then(setChores);
+  }, []);
   return (
     <>
       <h1>Chores List</h1>
+      <Table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Frequency</th>
+            <th>Difficulty</th>
+            <th>Details</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {chores.map(c => (
+            <tr key={c.id}>
+              <th scope="row">{`${c.name}`}</th>
+              <th scope="row">{`${c.choreFrequencyDays}`}</th>
+              <th scope="row">{`${c.difficulty}`}</th>
+              <td>
+                <Link to={`/chores/${c.id}`}>Details</Link>
+              </td>
+              <td>
+                {/* {up.roles.includes('Admin') ? (
+                  <Button
+                    color="danger"
+                    onClick={() => {
+                      demote(up.identityUserId);
+                    }}
+                  >
+                    Demote
+                  </Button>
+                ) : (
+                  <Button
+                    color="success"
+                    onClick={() => {
+                      promote(up.identityUserId);
+                    }}
+                  >
+                    Promote
+                  </Button>
+                )} */}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </>
   );
 }
-
-// Create a component called ChoresList that lists all of the chores in the system.
-// Include the chores' frequencies and difficulties.
-// Add a route group in the Routes of the app called /chores for all of the views related to chores. Make the ChoresList the element of the index route of that group.
-// The chores should be viewable by all logged in users, but not logged out users.
-// Each chore should have a delete button that only admins can see that deletes the chore.
