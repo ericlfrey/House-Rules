@@ -22,6 +22,9 @@ export default function ChoresList() {
   return (
     <>
       <h1>Chores List</h1>
+      {loggedInUser?.roles.includes('Admin') ? (
+        <Link to="/chores/new">Add a Chore</Link>
+      ) : null}
       <Table>
         <thead>
           <tr>
