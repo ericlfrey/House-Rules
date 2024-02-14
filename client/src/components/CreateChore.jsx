@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import { createChore } from '../managers/choreManager';
 
 export default function CreateChore() {
   const initialState = {
@@ -8,7 +10,7 @@ export default function CreateChore() {
     choreFrequencyDays: 0,
   };
   const [formInput, setFormInput] = useState(initialState);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -20,7 +22,9 @@ export default function CreateChore() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(formInput);
+    createChore(formInput).then(() => {
+      navigate('/chores');
+    });
   };
   return (
     <div>
@@ -74,6 +78,3 @@ export default function CreateChore() {
     </div>
   );
 }
-
-// Create a component called CreateChore that allows admins to create new chores in the system.
-// The component should contain a form to collect a name, difficulty, and chore frequency.
