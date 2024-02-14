@@ -24,10 +24,12 @@ function App() {
   return (
     <>
       <NavBar loggedInUser={loggedInUser} setLoggedInUser={setLoggedInUser} />
-      <ApplicationViews
-        loggedInUser={loggedInUser}
-        setLoggedInUser={setLoggedInUser}
-      />
+      <div className="container">
+        <ApplicationViews
+          loggedInUser={loggedInUser}
+          setLoggedInUser={setLoggedInUser}
+        />
+      </div>
     </>
   );
 }

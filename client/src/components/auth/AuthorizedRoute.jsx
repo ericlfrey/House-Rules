@@ -1,4 +1,5 @@
-import { Navigate } from "react-router-dom";
+/* eslint-disable react/prop-types */
+import { Navigate } from 'react-router-dom';
 
 // This component returns a Route that either display the prop element
 // or navigates to the login. If roles are provided, the route will require
@@ -8,8 +9,8 @@ export const AuthorizedRoute = ({ children, loggedInUser, roles, all }) => {
   if (loggedInUser) {
     if (roles && roles.length) {
       authed = all
-        ? roles.every((r) => loggedInUser.roles.includes(r))
-        : roles.some((r) => loggedInUser.roles.includes(r));
+        ? roles.every(r => loggedInUser.roles.includes(r))
+        : roles.some(r => loggedInUser.roles.includes(r));
     } else {
       authed = true;
     }

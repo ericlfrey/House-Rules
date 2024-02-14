@@ -37,6 +37,7 @@ public class ChoreController : ControllerBase
   {
     var chore = _dbContext.Chores
       .Include(c => c.Completions)
+      .ThenInclude(cc => cc.UserProfile)
       .FirstOrDefault(c => c.Id == id);
     if (chore == null)
     {
