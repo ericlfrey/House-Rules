@@ -7,6 +7,7 @@ import Home from './Home';
 import UserProfileList from './UserProfileList';
 import UserProfileDetails from './UserProfileDetails';
 import ChoresList from './ChoresList';
+import ChoreDetails from './ChoreDetails';
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -41,6 +42,14 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
               <ChoresList />
+            </AuthorizedRoute>
+          }
+        />
+        <Route
+          path="chores/:id"
+          element={
+            <AuthorizedRoute roles={['Admin']} loggedInUser={loggedInUser}>
+              <ChoreDetails />
             </AuthorizedRoute>
           }
         />
