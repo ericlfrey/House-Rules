@@ -28,7 +28,7 @@ export default function ChoresList() {
             <th>Name</th>
             <th>Frequency</th>
             <th>Difficulty</th>
-            <th>Details</th>
+            {loggedInUser?.roles.includes('Admin') ? <th>Details</th> : null}
             <th>Actions</th>
           </tr>
         </thead>
@@ -38,9 +38,11 @@ export default function ChoresList() {
               <th scope="row">{`${c.name}`}</th>
               <th scope="row">{`${c.choreFrequencyDays}`}</th>
               <th scope="row">{`${c.difficulty}`}</th>
-              <td>
-                <Link to={`/chores/${c.id}`}>Details</Link>
-              </td>
+              {loggedInUser?.roles.includes('Admin') ? (
+                <td>
+                  <Link to={`/chores/${c.id}`}>Details</Link>
+                </td>
+              ) : null}
               <td>
                 {loggedInUser?.roles.includes('Admin') ? (
                   <Button color="danger" onClick={() => handleDelete(c.id)}>
