@@ -36,3 +36,23 @@ export const completeChore = payload => {
     }
   });
 }
+export const assignChore = payload => {
+  return fetch(`${_apiUrl}/${payload.choreId}/assign?userId=${payload.userId}`, {
+    method: 'POST',
+  }).then((res) => {
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+  });
+}
+export const unassignChore = payload => {
+  return fetch(`${_apiUrl}/${payload.choreId}/unassign?userId=${payload.userId}`, {
+    method: 'POST',
+  }).then((res) => {
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+  });
+}
+
+// With this modification, you can call the CompleteChore method with a URL like /api/chore/1/complete?userId=abc123, where abc123 is the ID of the user.
