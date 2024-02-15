@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react';
-import { deleteChore, getChores } from '../managers/choreManager';
+import {
+  completeChore,
+  deleteChore,
+  getChores,
+} from '../managers/choreManager';
 import { Button, Table } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { tryGetLoggedInUser } from '../managers/authManager';
 
 export default function ChoresList() {
   const [chores, setChores] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState();
+  const navigate = useNavigate();
 
   const getAllChores = () => getChores().then(setChores);
 
@@ -17,6 +22,14 @@ export default function ChoresList() {
 
   const handleDelete = id => {
     deleteChore(id).then(() => getAllChores());
+  };
+
+  const handleComplete = choreId => {
+    const payload = {
+      choreId,
+      userId: loggedInUser.id,
+    };
+    completeChore(payload).then(() => navigate(`/chores/${choreId}`));
   };
 
   return (
@@ -52,6 +65,9 @@ export default function ChoresList() {
                     Delete
                   </Button>
                 ) : null}
+                <Button color="primary" onClick={() => handleComplete(c.id)}>
+                  Complete
+                </Button>
               </td>
             </tr>
           ))}
