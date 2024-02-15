@@ -26,3 +26,13 @@ export const createChore = (chore) => {
     body: JSON.stringify(chore),
   }).then((res) => res.json);
 };
+
+export const completeChore = payload => {
+  return fetch(`${_apiUrl}/${payload.choreId}/complete?userId=${payload.userId}`, {
+    method: 'POST',
+  }).then((res) => {
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+  });
+}
