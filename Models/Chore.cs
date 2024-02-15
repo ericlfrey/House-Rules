@@ -7,9 +7,11 @@ public class Chore
   public int Difficulty { get; set; }
   public int ChoreFrequencyDays { get; set; }
   public List<ChoreCompletion> Completions { get; set; }
+  public List<ChoreAssignment> Assignments { get; set; }
 
   public Chore()
   {
     Completions = new List<ChoreCompletion>();
+    Assignments = new List<ChoreAssignment>();
   }
 }
