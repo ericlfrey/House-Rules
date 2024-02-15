@@ -54,5 +54,3 @@ export const unassignChore = payload => {
     }
   });
 }
-
-// With this modification, you can call the CompleteChore method with a URL like /api/chore/1/complete?userId=abc123, where abc123 is the ID of the user.
