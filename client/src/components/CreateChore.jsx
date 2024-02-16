@@ -68,13 +68,21 @@ export default function CreateChore() {
           <Label>Frequency (in days)</Label>
           <Input
             type="number"
-            value={formInput.choreFrequencyDays}
+            value={formInput.choreFrequencyDays || ''}
             name="choreFrequencyDays"
+            list="frequencyList"
             min={1}
-            max={365}
+            max={14}
             onChange={handleChange}
             required
           />
+          <datalist id="frequencyList">
+            <option value="1" />
+            <option value="3" />
+            <option value="7" />
+            <option value="10" />
+            <option value="14" />
+          </datalist>
         </FormGroup>
         <Button type="submit" color="primary">
           Submit
