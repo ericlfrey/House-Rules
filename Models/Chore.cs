@@ -9,6 +9,7 @@ public class Chore
   public string Name { get; set; }
   [Range(1, 5, ErrorMessage = "Chore difficulty must be between 1 and 5")]
   public int Difficulty { get; set; }
+  [Range(1, 14, ErrorMessage = "Chore frequency must not be more than 14 days")]
   public int ChoreFrequencyDays { get; set; }
   public List<ChoreCompletion> Completions { get; set; }
   public List<ChoreAssignment> Assignments { get; set; }
