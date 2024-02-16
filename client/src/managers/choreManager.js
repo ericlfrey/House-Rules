@@ -24,7 +24,7 @@ export const createChore = (chore) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(chore),
-  }).then((res) => res.json);
+  }).then((res) => res.json());
 };
 
 export const completeChore = payload => {

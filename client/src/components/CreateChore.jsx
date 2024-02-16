@@ -10,6 +10,7 @@ export default function CreateChore() {
     choreFrequencyDays: 0,
   };
   const [formInput, setFormInput] = useState(initialState);
+  const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
   const handleChange = e => {
@@ -22,8 +23,12 @@ export default function CreateChore() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    createChore(formInput).then(() => {
-      navigate('/chores');
+    createChore(formInput).then(res => {
+      if (res.errors) {
+        setErrors(res.errors);
+      } else {
+        navigate('/chores');
+      }
     });
   };
   return (
@@ -63,18 +68,33 @@ export default function CreateChore() {
           <Label>Frequency (in days)</Label>
           <Input
             type="number"
-            value={formInput.choreFrequencyDays}
+            value={formInput.choreFrequencyDays || ''}
             name="choreFrequencyDays"
+            list="frequencyList"
             min={1}
-            max={365}
+            max={14}
             onChange={handleChange}
             required
           />
+          <datalist id="frequencyList">
+            <option value="1" />
+            <option value="3" />
+            <option value="7" />
+            <option value="10" />
+            <option value="14" />
+          </datalist>
         </FormGroup>
         <Button type="submit" color="primary">
           Submit
         </Button>
       </Form>
+      <div style={{ color: 'red' }}>
+        {Object.keys(errors).map(key => (
+          <p key={key}>
+            {key}: {errors[key].join(',')}
+          </p>
+        ))}
+      </div>
     </div>
   );
 }
