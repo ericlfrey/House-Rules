@@ -10,6 +10,7 @@ export default function CreateChore() {
     choreFrequencyDays: 0,
   };
   const [formInput, setFormInput] = useState(initialState);
+  const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
   const handleChange = e => {
@@ -22,8 +23,12 @@ export default function CreateChore() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    createChore(formInput).then(() => {
-      navigate('/chores');
+    createChore(formInput).then(res => {
+      if (res.errors) {
+        setErrors(res.errors);
+      } else {
+        navigate('/chores');
+      }
     });
   };
   return (
@@ -75,6 +80,13 @@ export default function CreateChore() {
           Submit
         </Button>
       </Form>
+      <div style={{ color: 'red' }}>
+        {Object.keys(errors).map(key => (
+          <p key={key}>
+            {key}: {errors[key].join(',')}
+          </p>
+        ))}
+      </div>
     </div>
   );
 }
